@@ -1,6 +1,30 @@
 class Api::ProductsController < ApplicationController
   def index
       @products = Product.all
+
+      search_terms = params[:search]
+      if search_terms
+          @products = @products.where("name iLike ?", "%#{search_terms}%")
+      end
+
+      price_ascending = params[:sort]
+      if price_ascending == "price" 
+          @products = @products.order(:price => :asc)   #.order and .where --> these are Active Record methods that convert Ruby to SQL?
+      end
+
+      price_sort = params[:sort_order]
+      if price_ascending == "price" && price_sort == "desc"
+        # --> isn't this asking it to sort in asc and desc?
+          @products = @products.order(:price => :desc)
+      end
+
+
+
+
+
+      @products = @products.order(:id => :asc)
+
+
       render 'index.json.jbuilder'
   end
 
