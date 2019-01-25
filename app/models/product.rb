@@ -9,6 +9,10 @@ class Product < ApplicationRecord
     validates :description, presence: true
     validates :description, length: { in: 10..300 }
 
+  def supplier
+    Supplier.find_by(id: self.supplier_id)   #self here refers to a product object. It is a product object because you are in the Produt class. 
+  end
+
   def is_discounted?
     price < 10    #the < returns true or false 
   end
