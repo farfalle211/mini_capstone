@@ -2,18 +2,46 @@ class Api::ProductsController < ApplicationController
   def index
       @products = Product.all
 
-      search_terms = params[:search]
-      if search_terms
-          @products = @products.where("name iLike ?", "%#{search_terms}%")
+      search_keyword = params[:search]   #key needs to be something particular because of the frontend app we are connecting it to, with "search" as the key you put into the URL
+      if search_keyword
+          @products = @products.where("name iLike ?", "%#{search_keyword}%")  #? sanitizes the inputs #
       end
 
-      price_ascending = params[:sort]
-      if price_ascending == "price" 
-          @products = @products.order(:price => :asc)   #.order and .where --> these are Active Record methods that convert Ruby to SQL?
+
+      discount = params[:discount]
+      if discount
+          @products = @products.where("price < ?", 10)
       end
+
+
+      sort_attribute = params[:sort]
+      sort_order = params[:sort_order]
+
+      if sort_attribute && sort_order
+          @products = @products.order(sort_attribute => sort_order)   
+          #price: :desc is Javascript notation. Change to :price => :desc is ruby syntax. then "price" => "desc". If you were to do sort_attribute: :desc, it is looking for an attribute called sort_attribute, but what you want it to do is convert the value that is sort_attribute passed in to be one of the attributes desired. 
+
+
+          # price: :desc  <-- you want this to be dynamic. 
+          # a string is being passed into sort_attribute (in params[:sort] above) and you want that to be dynamic and so must use ruby syntax, because the Javascript syntax takes it in as a symbol (and thus is not reading sort_attribute the string that was passed in at all "not even making it connect with the string passed in") 
+
+
+          # split .reverse should not be called on a symbol, symbol are characters optimized for memory
+
+
+
+          #.order and .where --> these are Active Record methods that convert Ruby to SQL?  
+          #you cannot sort by a non attibute (price, name, etc have to be entered as the value)
+      elsif sort_attribute
+        @products = @products.order(sort_attribute)
+      else 
+        @products = @products.order(:id)
+      end
+
+
 
       price_sort = params[:sort_order]
-      if price_ascending == "price" && price_sort == "desc"
+      if sort_attribute == "price" && price_sort == "desc"
         # --> isn't this asking it to sort in asc and desc?
           @products = @products.order(:price => :desc)
       end
@@ -22,7 +50,7 @@ class Api::ProductsController < ApplicationController
 
 
 
-      @products = @products.order(:id => :asc)
+      @products = @products.order(:id)
 
 
       render 'index.json.jbuilder'
