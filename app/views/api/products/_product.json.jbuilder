@@ -5,7 +5,7 @@
   json.tax product.tax
   json.total product.total
 
-  jason.images do
+  json.images do
       json.array! product.images, partial: 'api/suppliers/supplier', as: :supplier
   end
 
