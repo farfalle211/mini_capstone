@@ -9,8 +9,16 @@ class Product < ApplicationRecord
     validates :description, presence: true
     validates :description, length: { in: 10..300 }
 
+  belongs_to :supplier
+
   def supplier
     Supplier.find_by(id: self.supplier_id)   #self here refers to a product object. It is a product object because you are in the Produt class. 
+  end
+
+
+  has_many :images
+  def images
+    Image.where(product_id: self.id)
   end
 
   def is_discounted?

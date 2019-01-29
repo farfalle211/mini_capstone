@@ -5,7 +5,10 @@
   json.tax product.tax
   json.total product.total
 
-  json.image_url product.image_url
+  jason.images do
+      json.array! product.images, partial: 'api/suppliers/supplier', as: :supplier
+  end
+
   json.description product.description
   json.is_discounted product.is_discounted?
   json.in_stock product.in_stock?
