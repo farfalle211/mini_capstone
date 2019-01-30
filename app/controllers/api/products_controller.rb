@@ -47,9 +47,6 @@ class Api::ProductsController < ApplicationController
       end
 
 
-
-
-
       @products = @products.order(:id)
 
 
