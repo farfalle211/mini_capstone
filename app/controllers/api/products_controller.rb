@@ -1,4 +1,6 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_admin, except: [:index, :show]
+  
   def index
       @products = Product.all
 
@@ -96,7 +98,6 @@ class Api::ProductsController < ApplicationController
     product = Product.find(params[:id])
     product.destroy
     render json: {message: "Successfully removed recipe"}
-    
   end
 
 end
