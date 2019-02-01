@@ -22,15 +22,17 @@
 #   {name: "Jim Croce", email: "jim@gmail.com", password_digest: "$2a$10$tr2OOnWqgb0kkrqO0D0gFuvEtDC1St/jXB8EkLQ2V1XmZjZmmR3ny", admin: true}
 # ])
 
-Category.create(name: "Burgers")
-Category.create(name: "Sandwich")
-Category.create(name: "Pizza")
+# Category.create(name: "Burgers")
+# Category.create(name: "Sandwich")
+# Category.create(name: "Pizza")
 
-ProductCategory.create(product_id: 1, category_id: 1)
-ProductCategory.create(product_id: 5, category_id: 1)
-ProductCategory.create(product_id: 2, category_id: 2)
-ProductCategory.create(product_id: 3, category_id: 2)
-ProductCategory.create(product_id: 4, category_id: 3)
+# ProductCategory.create(product_id: 1, category_id: 1)
+# ProductCategory.create(product_id: 5, category_id: 1)
+# ProductCategory.create(product_id: 2, category_id: 2)
+# ProductCategory.create(product_id: 3, category_id: 2)
+# ProductCategory.create(product_id: 4, category_id: 3)
+# ProductCategory.create(product_id: 2, category_id: 1)
+# ProductCategory.create(product_id: 5, category_id: 2)
 
 
 

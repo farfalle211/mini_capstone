@@ -4,11 +4,16 @@ class Api::ProductsController < ApplicationController
   def index
       @products = Product.all
 
+      category_name = params[:category]
+      if category_name
+        category = Category.find_by(name: category_name)
+        @products = category.products
+      end
+
       search_keyword = params[:search]   #key needs to be something particular because of the frontend app we are connecting it to, with "search" as the key you put into the URL
       if search_keyword
           @products = @products.where("name iLike ?", "%#{search_keyword}%")  #? sanitizes the inputs #
       end
-
 
       discount = params[:discount]
       if discount
