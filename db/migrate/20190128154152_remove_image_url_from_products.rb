@@ -3,3 +3,4 @@ class RemoveImageUrlFromProducts < ActiveRecord::Migration[5.2]
     remove_column :products, :image_url, :string
   end
 end
+
